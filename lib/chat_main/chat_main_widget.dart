@@ -20,6 +20,12 @@ class _ChatMainWidgetState extends State<ChatMainWidget> {
   final scaffoldKey = GlobalKey<ScaffoldState>();
 
   @override
+  void initState() {
+    super.initState();
+    logFirebaseEvent('screen_view', parameters: {'screen_name': 'chatMain'});
+  }
+
+  @override
   Widget build(BuildContext context) {
     return StreamBuilder<UsersRecord>(
       stream: UsersRecord.getDocument(currentUserReference!),
@@ -42,6 +48,8 @@ class _ChatMainWidgetState extends State<ChatMainWidget> {
           backgroundColor: FlutterFlowTheme.of(context).spaceCadet,
           floatingActionButton: FloatingActionButton(
             onPressed: () async {
+              logFirebaseEvent('CHAT_MAIN_FloatingActionButton_aee4w6um_');
+              logFirebaseEvent('FloatingActionButton_navigate_to');
               await Navigator.push(
                 context,
                 PageTransition(

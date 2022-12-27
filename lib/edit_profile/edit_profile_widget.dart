@@ -35,6 +35,12 @@ class _EditProfileWidgetState extends State<EditProfileWidget> {
   final scaffoldKey = GlobalKey<ScaffoldState>();
 
   @override
+  void initState() {
+    super.initState();
+    logFirebaseEvent('screen_view', parameters: {'screen_name': 'editProfile'});
+  }
+
+  @override
   void dispose() {
     textController1?.dispose();
     textController2?.dispose();
@@ -68,6 +74,8 @@ class _EditProfileWidgetState extends State<EditProfileWidget> {
             automaticallyImplyLeading: false,
             leading: InkWell(
               onTap: () async {
+                logFirebaseEvent('EDIT_PROFILE_PAGE_Icon_7bxuwhxn_ON_TAP');
+                logFirebaseEvent('Icon_navigate_back');
                 Navigator.pop(context);
               },
               child: Icon(
@@ -118,6 +126,10 @@ class _EditProfileWidgetState extends State<EditProfileWidget> {
                                 EdgeInsetsDirectional.fromSTEB(0, 20, 0, 0),
                             child: InkWell(
                               onTap: () async {
+                                logFirebaseEvent(
+                                    'EDIT_PROFILE_CircleImage_98a9otnw_ON_TAP');
+                                logFirebaseEvent(
+                                    'CircleImage_upload_media_to_firebase');
                                 final selectedMedia = await selectMedia(
                                   maxWidth: 1000.00,
                                   maxHeight: 1000.00,
@@ -162,6 +174,8 @@ class _EditProfileWidgetState extends State<EditProfileWidget> {
                                     return;
                                   }
                                 }
+
+                                logFirebaseEvent('CircleImage_backend_call');
 
                                 final usersUpdateData = createUsersRecordData(
                                   photoUrl: uploadedFileUrl,
@@ -383,6 +397,10 @@ class _EditProfileWidgetState extends State<EditProfileWidget> {
                           padding: EdgeInsetsDirectional.fromSTEB(0, 20, 0, 0),
                           child: FFButtonWidget(
                             onPressed: () async {
+                              logFirebaseEvent(
+                                  'EDIT_PROFILE_SAVE_CHANGES_BTN_ON_TAP');
+                              logFirebaseEvent('Button_backend_call');
+
                               final usersUpdateData = createUsersRecordData(
                                 email: textController1?.text ?? '',
                                 displayName: textController2?.text ?? '',
@@ -391,6 +409,7 @@ class _EditProfileWidgetState extends State<EditProfileWidget> {
                               );
                               await editProfileUsersRecord.reference
                                   .update(usersUpdateData);
+                              logFirebaseEvent('Button_navigate_back');
                               Navigator.pop(context);
                             },
                             text: 'Save Changes',

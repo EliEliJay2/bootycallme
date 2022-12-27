@@ -51,6 +51,8 @@ class _ChatDetailsWidgetState extends State<ChatDetailsWidget> {
         setState(() => _chatInfo = info);
       }
     });
+
+    logFirebaseEvent('screen_view', parameters: {'screen_name': 'chatDetails'});
   }
 
   @override
@@ -106,6 +108,9 @@ class _ChatDetailsWidgetState extends State<ChatDetailsWidget> {
                             size: 30,
                           ),
                           onPressed: () async {
+                            logFirebaseEvent(
+                                'CHAT_DETAILS_close_rounded_ICN_ON_TAP');
+                            logFirebaseEvent('IconButton_drawer');
                             if (scaffoldKey.currentState!.isDrawerOpen ||
                                 scaffoldKey.currentState!.isEndDrawerOpen) {
                               Navigator.pop(context);
@@ -263,6 +268,8 @@ class _ChatDetailsWidgetState extends State<ChatDetailsWidget> {
         automaticallyImplyLeading: false,
         leading: InkWell(
           onTap: () async {
+            logFirebaseEvent('CHAT_DETAILS_PAGE_Icon_9226xkn8_ON_TAP');
+            logFirebaseEvent('Icon_navigate_to');
             await Navigator.push(
               context,
               PageTransition(
@@ -291,7 +298,10 @@ class _ChatDetailsWidgetState extends State<ChatDetailsWidget> {
             padding: EdgeInsetsDirectional.fromSTEB(0, 0, 16, 0),
             child: InkWell(
               onTap: () async {
+                logFirebaseEvent('CHAT_DETAILS_PAGE_Icon_ztaf5u2n_ON_TAP');
+                logFirebaseEvent('Icon_backend_call');
                 await widget.chatRef!.delete();
+                logFirebaseEvent('Icon_navigate_to');
                 await Navigator.push(
                   context,
                   MaterialPageRoute(

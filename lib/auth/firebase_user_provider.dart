@@ -1,5 +1,7 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:rxdart/rxdart.dart';
+import 'package:firebase_crashlytics/firebase_crashlytics.dart';
+import 'package:flutter/foundation.dart';
 
 class BootyCallMeFirebaseUser {
   BootyCallMeFirebaseUser(this.user);
@@ -18,6 +20,9 @@ Stream<BootyCallMeFirebaseUser> bootyCallMeFirebaseUserStream() =>
         .map<BootyCallMeFirebaseUser>(
       (user) {
         currentUser = BootyCallMeFirebaseUser(user);
+        if (!kIsWeb) {
+          FirebaseCrashlytics.instance.setUserIdentifier(user?.uid ?? '');
+        }
         return currentUser!;
       },
     );

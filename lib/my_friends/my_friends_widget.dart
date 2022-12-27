@@ -18,6 +18,12 @@ class _MyFriendsWidgetState extends State<MyFriendsWidget> {
   final scaffoldKey = GlobalKey<ScaffoldState>();
 
   @override
+  void initState() {
+    super.initState();
+    logFirebaseEvent('screen_view', parameters: {'screen_name': 'MyFriends'});
+  }
+
+  @override
   Widget build(BuildContext context) {
     return Scaffold(
       key: scaffoldKey,
@@ -45,6 +51,8 @@ class _MyFriendsWidgetState extends State<MyFriendsWidget> {
                 size: 30,
               ),
               onPressed: () async {
+                logFirebaseEvent('MY_FRIENDS_PAGE_close_rounded_ICN_ON_TAP');
+                logFirebaseEvent('IconButton_navigate_back');
                 Navigator.pop(context);
               },
             ),
@@ -118,6 +126,9 @@ class _MyFriendsWidgetState extends State<MyFriendsWidget> {
                             ),
                             child: InkWell(
                               onTap: () async {
+                                logFirebaseEvent(
+                                    'MY_FRIENDS_PAGE_Row_izf1ehdd_ON_TAP');
+                                logFirebaseEvent('Row_navigate_to');
                                 await Navigator.push(
                                   context,
                                   MaterialPageRoute(

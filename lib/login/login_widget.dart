@@ -27,6 +27,7 @@ class _LoginWidgetState extends State<LoginWidget> {
     emailTextController = TextEditingController();
     passwordTextController = TextEditingController();
     passwordVisibility = false;
+    logFirebaseEvent('screen_view', parameters: {'screen_name': 'Login'});
   }
 
   @override
@@ -247,6 +248,9 @@ class _LoginWidgetState extends State<LoginWidget> {
                 ),
                 FFButtonWidget(
                   onPressed: () async {
+                    logFirebaseEvent('LOGIN_PAGE_LOG_IN_BTN_ON_TAP');
+                    logFirebaseEvent('Button_auth');
+
                     final user = await signInWithEmail(
                       context,
                       emailTextController!.text,
@@ -256,6 +260,7 @@ class _LoginWidgetState extends State<LoginWidget> {
                       return;
                     }
 
+                    logFirebaseEvent('Button_navigate_to');
                     await Navigator.push(
                       context,
                       MaterialPageRoute(
@@ -305,6 +310,8 @@ class _LoginWidgetState extends State<LoginWidget> {
                 ),
                 FFButtonWidget(
                   onPressed: () async {
+                    logFirebaseEvent('LOGIN_PAGE_CREATE_ACCOUNT_BTN_ON_TAP');
+                    logFirebaseEvent('Button_navigate_to');
                     await Navigator.push(
                       context,
                       PageTransition(
@@ -337,6 +344,9 @@ class _LoginWidgetState extends State<LoginWidget> {
                   padding: EdgeInsetsDirectional.fromSTEB(48, 24, 48, 6),
                   child: FFButtonWidget(
                     onPressed: () async {
+                      logFirebaseEvent(
+                          'LOGIN_PAGE_FORGOT_PASSWORD?_BTN_ON_TAP');
+                      logFirebaseEvent('Button_navigate_to');
                       await Navigator.push(
                         context,
                         MaterialPageRoute(

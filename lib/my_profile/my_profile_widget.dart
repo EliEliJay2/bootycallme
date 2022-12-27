@@ -69,6 +69,8 @@ class _MyProfileWidgetState extends State<MyProfileWidget>
           !anim.applyInitialState),
       this,
     );
+
+    logFirebaseEvent('screen_view', parameters: {'screen_name': 'myProfile'});
   }
 
   @override
@@ -136,6 +138,10 @@ class _MyProfileWidgetState extends State<MyProfileWidget>
                                           0, 160, 0, 0),
                                       child: InkWell(
                                         onTap: () async {
+                                          logFirebaseEvent(
+                                              'MY_PROFILE_CircleImage_b77rrswj_ON_TAP');
+                                          logFirebaseEvent(
+                                              'CircleImage_upload_media_to_firebase');
                                           final selectedMedia =
                                               await selectMedia(
                                             maxWidth: 1000.00,
@@ -185,6 +191,9 @@ class _MyProfileWidgetState extends State<MyProfileWidget>
                                               return;
                                             }
                                           }
+
+                                          logFirebaseEvent(
+                                              'CircleImage_backend_call');
 
                                           final usersUpdateData =
                                               createUsersRecordData(
@@ -288,7 +297,12 @@ class _MyProfileWidgetState extends State<MyProfileWidget>
                     if (!(Theme.of(context).brightness == Brightness.dark))
                       InkWell(
                         onTap: () async {
+                          logFirebaseEvent(
+                              'MY_PROFILE_PAGE_isLightMode_ON_TAP');
+                          logFirebaseEvent(
+                              'isLightMode_set_dark_mode_settings');
                           setDarkModeSetting(context, ThemeMode.dark);
+                          logFirebaseEvent('isLightMode_widget_animation');
                           if (animationsMap[
                                   'containerOnActionTriggerAnimation2'] !=
                               null) {
@@ -387,7 +401,10 @@ class _MyProfileWidgetState extends State<MyProfileWidget>
                     if (Theme.of(context).brightness == Brightness.dark)
                       InkWell(
                         onTap: () async {
+                          logFirebaseEvent('MY_PROFILE_PAGE_isDarkMode_ON_TAP');
+                          logFirebaseEvent('isDarkMode_set_dark_mode_settings');
                           setDarkModeSetting(context, ThemeMode.light);
+                          logFirebaseEvent('isDarkMode_widget_animation');
                           if (animationsMap[
                                   'containerOnActionTriggerAnimation1'] !=
                               null) {
@@ -539,6 +556,9 @@ class _MyProfileWidgetState extends State<MyProfileWidget>
                                 ),
                                 child: InkWell(
                                   onTap: () async {
+                                    logFirebaseEvent(
+                                        'MY_PROFILE_PAGE_Row_2wd55n8n_ON_TAP');
+                                    logFirebaseEvent('Row_navigate_to');
                                     await Navigator.push(
                                       context,
                                       MaterialPageRoute(
@@ -608,6 +628,9 @@ class _MyProfileWidgetState extends State<MyProfileWidget>
                               ),
                               child: InkWell(
                                 onTap: () async {
+                                  logFirebaseEvent(
+                                      'MY_PROFILE_PAGE_Row_mhthbg1k_ON_TAP');
+                                  logFirebaseEvent('Row_navigate_to');
                                   await Navigator.push(
                                     context,
                                     MaterialPageRoute(
@@ -657,6 +680,9 @@ class _MyProfileWidgetState extends State<MyProfileWidget>
                           children: [
                             FFButtonWidget(
                               onPressed: () async {
+                                logFirebaseEvent(
+                                    'MY_PROFILE_PAGE_LOG_OUT_BTN_ON_TAP');
+                                logFirebaseEvent('Button_auth');
                                 await signOut();
                                 await Navigator.pushAndRemoveUntil(
                                   context,

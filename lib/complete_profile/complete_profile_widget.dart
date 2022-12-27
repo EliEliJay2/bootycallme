@@ -32,6 +32,8 @@ class _CompleteProfileWidgetState extends State<CompleteProfileWidget> {
     displayNameController = TextEditingController();
     imageURLController = TextEditingController();
     yourTitleController = TextEditingController();
+    logFirebaseEvent('screen_view',
+        parameters: {'screen_name': 'completeProfile'});
   }
 
   @override
@@ -67,6 +69,8 @@ class _CompleteProfileWidgetState extends State<CompleteProfileWidget> {
               padding: EdgeInsetsDirectional.fromSTEB(0, 20, 0, 0),
               child: InkWell(
                 onTap: () async {
+                  logFirebaseEvent('COMPLETE_PROFILE_CircleImage_tsll7vag_ON');
+                  logFirebaseEvent('CircleImage_upload_media_to_firebase');
                   final selectedMedia = await selectMedia(
                     maxWidth: 1000.00,
                     maxHeight: 1000.00,
@@ -271,6 +275,9 @@ class _CompleteProfileWidgetState extends State<CompleteProfileWidget> {
             padding: EdgeInsetsDirectional.fromSTEB(0, 24, 0, 0),
             child: FFButtonWidget(
               onPressed: () async {
+                logFirebaseEvent('COMPLETE_PROFILE_Button-Login_ON_TAP');
+                logFirebaseEvent('Button-Login_backend_call');
+
                 final usersUpdateData = createUsersRecordData(
                   photoUrl: valueOrDefault<String>(
                     imageURLController!.text,
@@ -281,6 +288,7 @@ class _CompleteProfileWidgetState extends State<CompleteProfileWidget> {
                   createdTime: getCurrentTimestamp,
                 );
                 await currentUserReference!.update(usersUpdateData);
+                logFirebaseEvent('Button-Login_navigate_to');
                 await Navigator.push(
                   context,
                   MaterialPageRoute(

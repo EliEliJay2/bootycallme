@@ -31,6 +31,7 @@ class _RegisterWidgetState extends State<RegisterWidget> {
     emailAddressController = TextEditingController();
     passwordController = TextEditingController();
     passwordVisibility = false;
+    logFirebaseEvent('screen_view', parameters: {'screen_name': 'Register'});
   }
 
   @override
@@ -328,6 +329,8 @@ class _RegisterWidgetState extends State<RegisterWidget> {
                 ),
                 FFButtonWidget(
                   onPressed: () async {
+                    logFirebaseEvent('REGISTER_PAGE_CREATE_ACCOUNT_BTN_ON_TAP');
+                    logFirebaseEvent('Button_auth');
                     if (passwordController?.text !=
                         confirmPasswordController?.text) {
                       ScaffoldMessenger.of(context).showSnackBar(
@@ -356,6 +359,7 @@ class _RegisterWidgetState extends State<RegisterWidget> {
                         .doc(user.uid)
                         .update(usersCreateData);
 
+                    logFirebaseEvent('Button_navigate_to');
                     await Navigator.pushAndRemoveUntil(
                       context,
                       MaterialPageRoute(
@@ -402,6 +406,8 @@ class _RegisterWidgetState extends State<RegisterWidget> {
                       ),
                       FFButtonWidget(
                         onPressed: () async {
+                          logFirebaseEvent('REGISTER_PAGE_loginButton_ON_TAP');
+                          logFirebaseEvent('loginButton_navigate_to');
                           await Navigator.pushAndRemoveUntil(
                             context,
                             PageTransition(

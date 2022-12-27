@@ -21,6 +21,12 @@ class _MainPageWidgetState extends State<MainPageWidget> {
   final scaffoldKey = GlobalKey<ScaffoldState>();
 
   @override
+  void initState() {
+    super.initState();
+    logFirebaseEvent('screen_view', parameters: {'screen_name': 'MainPage'});
+  }
+
+  @override
   Widget build(BuildContext context) {
     return AuthUserStreamWidget(
       child: StreamBuilder<List<UsersRecord>>(
@@ -150,12 +156,18 @@ class _MainPageWidgetState extends State<MainPageWidget> {
                                   EdgeInsetsDirectional.fromSTEB(0, 20, 0, 24),
                               child: FFButtonWidget(
                                 onPressed: () async {
+                                  logFirebaseEvent(
+                                      'MAIN_PAGE_PAGE_ButtonPrimary_ON_TAP');
+                                  logFirebaseEvent(
+                                      'ButtonPrimary_backend_call');
+
                                   final usersUpdateData = {
                                     'rejected': FieldValue.arrayUnion(
                                         [mainPageUsersRecord!.uid]),
                                   };
                                   await currentUserReference!
                                       .update(usersUpdateData);
+                                  logFirebaseEvent('ButtonPrimary_navigate_to');
                                   await Navigator.push(
                                     context,
                                     PageTransition(
@@ -192,6 +204,11 @@ class _MainPageWidgetState extends State<MainPageWidget> {
                                   EdgeInsetsDirectional.fromSTEB(0, 20, 0, 24),
                               child: FFButtonWidget(
                                 onPressed: () async {
+                                  logFirebaseEvent(
+                                      'MAIN_PAGE_PAGE_ButtonPrimary_ON_TAP');
+                                  logFirebaseEvent(
+                                      'ButtonPrimary_backend_call');
+
                                   final usersUpdateData = {
                                     'matches': FieldValue.arrayUnion(
                                         [mainPageUsersRecord!.uid]),
@@ -201,6 +218,9 @@ class _MainPageWidgetState extends State<MainPageWidget> {
                                   if (mainPageUsersRecord!.matches!
                                       .toList()
                                       .contains(currentUserUid)) {
+                                    logFirebaseEvent(
+                                        'ButtonPrimary_backend_call');
+
                                     final chatsCreateData = {
                                       ...createChatsRecordData(
                                         userA: mainPageUsersRecord!.reference,
@@ -215,6 +235,8 @@ class _MainPageWidgetState extends State<MainPageWidget> {
                                     await ChatsRecord.collection
                                         .doc()
                                         .set(chatsCreateData);
+                                    logFirebaseEvent(
+                                        'ButtonPrimary_show_snack_bar');
                                     ScaffoldMessenger.of(context).showSnackBar(
                                       SnackBar(
                                         content: Text(
@@ -228,9 +250,12 @@ class _MainPageWidgetState extends State<MainPageWidget> {
                                         backgroundColor: Color(0x00000000),
                                       ),
                                     );
+                                    logFirebaseEvent(
+                                        'ButtonPrimary_wait__delay');
                                     await Future.delayed(
                                         const Duration(milliseconds: 3000));
                                   }
+                                  logFirebaseEvent('ButtonPrimary_navigate_to');
                                   await Navigator.push(
                                     context,
                                     PageTransition(
